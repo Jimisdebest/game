@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Escape Game</title>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      background: #222;
+      color: #fff;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    #overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.95);
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+    #overlay input[type="text"] {
+      padding: 10px;
+      font-size: 20px;
+      margin: 10px 0;
+    }
+    #overlay button {
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    .message { margin-top: 15px; }
+  </style>
+</head>
+<body>
+  <h1>Welkom bij het Escape Game</h1>
+  <p>Kun jij ontsnappen?</p>
+
+  <div id="overlay">
+    <h2>Voer het wachtwoord in om te ontsnappen</h2>
+    <input type="text" id="passwordInput" placeholder="Wachtwoord" autocomplete="off">
+    <button onclick="checkPassword()">Ontsnap</button>
+    <div id="msg" class="message"></div>
+  </div>
+
+  <script>
+    // Direct naar fullscreen bij laden
+    function goFullscreen() {
+      const elem = document.documentElement;
+      if (elem.requestFullscreen) elem.requestFullscreen();
+      else if (elem.mozRequestFullScreen) elem.mozRequestFullScreen();
+      else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+      else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      goFullscreen();
+    });
+
+    // ESC key opent overlay
+    document.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") {
+        showOverlay();
+      }
+    });
+
+    function showOverlay() {
+      document.getElementById('overlay').style.display = 'flex';
+      document.getElementById('passwordInput').focus();
+    }
+
+    function checkPassword
+
