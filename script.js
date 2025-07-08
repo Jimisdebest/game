@@ -78,3 +78,16 @@ function requestFullscreen() {
   else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
   else if (el.msRequestFullscreen) el.msRequestFullscreen();
 }
+document.addEventListener('keydown', (e) => {
+  if (e.key.toLowerCase() === 'z') {
+    closeAllWindows();
+    blackout.style.display = 'none';
+    document.body.style.cursor = 'default';
+    scareSound.pause();
+    scareSound.currentTime = 0;
+
+    if (document.fullscreenElement) {
+      document.exitFullscreen().catch(() => {});
+    }
+  }
+});
