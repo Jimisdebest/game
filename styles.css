@@ -7,15 +7,19 @@ function openAnnoyingTab(withMessage = false) {
   const screenH = window.screen.height;
   const x = Math.floor(Math.random() * (screenW - 400));
   const y = Math.floor(Math.random() * (screenH - 300));
-
   const colors = ['red', 'lime', 'yellow', 'blue', 'orange', 'cyan', 'magenta'];
+
   const newWindow = window.open('', '_blank', `width=400,height=300,left=${x},top=${y}`);
   if (newWindow) {
     openedWindows.push(newWindow);
     newWindow.document.write(`
-      <html><body style="margin:0; background:black; display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh;">
+      <html>
+      <body style="margin:0; background:black; display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh;">
         ${withMessage ? '<p style="color:white; font-size:20px;">💡 Click some tabs away for a better browsing experience</p>' : ''}
-        <h1 id="msg" style="font-size:100px; font-family:sans-serif;">YOU ARE AN IDIOT</h1>
+        <h1 id="msg" style="font-size:80px; font-family:sans-serif;">YOU ARE AN IDIOT</h1>
+        <audio autoplay>
+          <source src="idiot.mp3" type="audio/mpeg">
+        </audio>
         <script>
           const colors = ${JSON.stringify(colors)};
           let i = 0;
@@ -25,16 +29,17 @@ function openAnnoyingTab(withMessage = false) {
           }, 300);
           document.documentElement.requestFullscreen?.();
         <\/script>
-      </body></html>
+      </body>
+      </html>
     `);
   }
 }
 
 function startChaos() {
-  openAnnoyingTab(true); // eerste venster met boodschap
+  openAnnoyingTab(true); // eerste pop-up met boodschap
   let seconds = 0;
   const interval = setInterval(() => {
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 5; i++) {
       openAnnoyingTab();
     }
     seconds++;
@@ -56,22 +61,15 @@ function closeAllWindows() {
 function triggerBlackout() {
   blackout.style.display = 'block';
   document.body.style.cursor = 'none';
-
   try {
     scareSound.volume = 1.0;
     scareSound.play();
   } catch {}
-
   setTimeout(() => {
     blackout.style.display = 'none';
     document.body.style.cursor = 'default';
   }, 10000);
 }
-
-window.addEventListener('load', () => {
-  requestFullscreen();
-  startChaos();
-});
 
 function requestFullscreen() {
   const el = document.documentElement;
@@ -81,7 +79,13 @@ function requestFullscreen() {
   el.msRequestFullscreen?.();
 }
 
-// 🔒 Panic key: Stop alles met Z
+// 🚀 Start direct bij openen
+window.addEventListener('load', () => {
+  requestFullscreen();
+  startChaos();
+});
+
+// ⌨️ Stop alles met Z
 document.addEventListener('keydown', (e) => {
   if (e.key.toLowerCase() === 'z') {
     closeAllWindows();
