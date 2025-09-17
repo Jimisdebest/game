@@ -21,7 +21,7 @@
     ];
 
     const startTime = Date.now();
-    const duration = 30000; // 30 seconden
+    const duration = 10; // Aantal seconden dat het proces doorgaat
 
     function openImagePopup() {
       if (Date.now() - startTime > duration) return;
@@ -77,7 +77,7 @@
         popup.document.close();
       }
 
-      setTimeout(openImagePopup, 1000); // elke seconde een nieuwe popup
+      setTimeout(openImagePopup, 1); // Aantal seconden tot een popup komt
     }
 
     openImagePopup();
