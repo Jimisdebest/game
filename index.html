@@ -21,25 +21,36 @@
     ];
 
     const startTime = Date.now();
-    const duration = 300000000000000000; // aantal sec dat de popups blijven komen
+    const duration = 30000; // 30 seconden
 
     function openImagePopup() {
       if (Date.now() - startTime > duration) return;
 
       const imgUrl = images[Math.floor(Math.random() * images.length)];
-      const popup = window.open("", "", "width=400,height=400,left=" + Math.random()*screen.width + ",top=" + Math.random()*screen.height);
+
+      const width = screen.availWidth;
+      const height = screen.availHeight;
+
+      const popup = window.open(
+        "",
+        "",
+        `width=${width},height=${height},left=0,top=0,toolbar=no,scrollbars=no,resizable=no`
+      );
+
       if (popup) {
         const style = `
           <style>
-            body {
+            html, body {
               margin: 0;
+              padding: 0;
               background-color: black;
+              height: 100%;
+              width: 100%;
               display: flex;
               align-items: center;
               justify-content: center;
-              height: 100vh;
-              overflow: hidden;
               animation: pulse 3s infinite;
+              overflow: hidden;
             }
             img {
               max-width: 100%;
