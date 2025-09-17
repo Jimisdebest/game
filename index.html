@@ -16,7 +16,7 @@
       "https://copilot.microsoft.com/th/id/BCO.28eda35f-ced6-44fa-b585-7fa69c9334cb.png",
       "https://copilot.microsoft.com/th/id/BCO.3fa851c7-ef00-4828-ba2d-60e49a451d49.png",
       "https://copilot.microsoft.com/th/id/BCO.adcf93b2-a7df-436d-bbb4-909c66ce5e84.png",
-      "https://copilot.microsoft.com/th/id/BCO.f70ee444-0dce-4607-adac-bd8450b47157.png"
+      "https://copilot.microsoft.com/th/id/BCO.f70ee444-0dce-4607-adac-bd8450b47157.png",
       "https://copilot.microsoft.com/th/id/BCO.189d6618-1e3a-44a5-825f-f8d872a5765a.png"
     ];
 
@@ -29,9 +29,41 @@
       const imgUrl = images[Math.floor(Math.random() * images.length)];
       const popup = window.open("", "", "width=400,height=400,left=" + Math.random()*screen.width + ",top=" + Math.random()*screen.height);
       if (popup) {
-        popup.document.body.style.margin = "0";
-        popup.document.body.style.backgroundColor = "black";
-        popup.document.body.innerHTML = `<img src="${imgUrl}" style="width:100%; height:100%; object-fit:cover;">`;
+        const style = `
+          <style>
+            body {
+              margin: 0;
+              background-color: black;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              height: 100vh;
+              overflow: hidden;
+              animation: pulse 3s infinite;
+            }
+            img {
+              max-width: 100%;
+              max-height: 100%;
+              border-radius: 20px;
+              box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
+              animation: spin 10s linear infinite;
+            }
+            @keyframes pulse {
+              0% { background-color: black; }
+              50% { background-color: #222; }
+              100% { background-color: black; }
+            }
+            @keyframes spin {
+              from { transform: rotate(0deg); }
+              to { transform: rotate(360deg); }
+            }
+          </style>
+        `;
+        popup.document.write(`
+          <html><head>${style}</head>
+          <body><img src="${imgUrl}"></body></html>
+        `);
+        popup.document.close();
       }
 
       setTimeout(openImagePopup, 1000); // elke seconde een nieuwe popup
