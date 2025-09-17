@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Psychedelische Afbeeldingen Popups</title>
+</head>
+<body style="background:black; color:white; text-align:center; font-family:sans-serif;">
+  <h1>Popups starten...</h1>
+
+  <script>
+    const images = [
+      "https://images.unsplash.com/photo-1607083206177-0d3b1d3c2c3e",
+      "https://images.unsplash.com/photo-1581320540385-7c1f3b5e2c3e",
+      "https://images.unsplash.com/photo-1619983082643-5f3b1d3c2c3e",
+      "https://images.unsplash.com/photo-1607083206177-0d3b1d3c2c3e",
+      "https://images.unsplash.com/photo-1593642532400-2682810df593"
+    ];
+
+    const startTime = Date.now();
+    const duration = 30000; // 30 seconden
+
+    function openImagePopup() {
+      if (Date.now() - startTime > duration) return;
+
+      const imgUrl = images[Math.floor(Math.random() * images.length)];
+      const popup = window.open("", "", "width=400,height=400,left=" + Math.random()*screen.width + ",top=" + Math.random()*screen.height);
+      if (popup) {
+        popup.document.body.style.margin = "0";
+        popup.document.body.style.backgroundColor = "black";
+        popup.document.body.innerHTML = `<img src="${imgUrl}" style="width:100%; height:100%; object-fit:cover;">`;
+      }
+
+      setTimeout(openImagePopup, 1000); // elke seconde een nieuwe popup
+    }
+
+    openImagePopup();
+  </script>
+</body>
+</html>
